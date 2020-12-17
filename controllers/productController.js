@@ -1,4 +1,5 @@
 const Product = require("../models/productModel");
+const {getPostData} = require('../utils/getPostData')
 
 // @desc    Gets all products
 // @route   route GET /api/products
@@ -30,8 +31,32 @@ async function getProduct(req, res, id) {
     console.log(error);
   }
 }
+// @desc    Gets single product
+// @route   route GET /api/product/:id
+async function createProduct(req, res) {
+  try {
+    const body = await getPostData(req)
+
+    const { title, description, price } = JSON.parse(body)
+    
+    const product = {
+      title,
+      description,
+      price
+    }
+
+    const newProduct = await Product.create(product)
+
+    res.writeHead(201, { "Content-Type": "application/json"})
+    return res.end(JSON.stringify(newProduct))  
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = {
   getProducts,
-  getProduct
+  getProduct,
+  createProduct
 };

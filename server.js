@@ -1,5 +1,5 @@
 const http = require('http');
-const {getProducts, getProduct} = require('./controllers/productController')
+const {getProducts, getProduct, createProduct} = require('./controllers/productController')
 
 const server = http.createServer((req, res) => {
     if (req.url === '/api/products' && req.method === 'GET') {
@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
         // /api/products/:id
         // with just a simple:
         // req.params.id
-    } else if (req.url === '/api/products' && req.ethod ==+ 'GET') {
+    } else if (req.url === '/api/products' && req.method === 'POST') {
         createProduct(req, res)
     }
     else {
